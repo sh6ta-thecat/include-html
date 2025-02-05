@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sh6ta_thecat</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            z-index: 1000;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #ff6f61;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6f61, #ffcc00);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="50" fill="%23ffffff" fill-opacity="0.1"/></svg>');
+            background-size: 20px 20px;
+            animation: moveBackground 10s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-100%);
+            }
+        }
+
+        /* Sección de Proyectos */
+        .projects {
+            padding: 50px 20px;
+            background-color: #2a2a2a;
+        }
+
+        .projects h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .project-card h3 {
+            margin: 15px 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .project-card p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        .project-card button {
+            background-color: #ff6f61;
+            border: none;
+            padding: 10px 20px;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .project-card button:hover {
+            background-color: #ff3b2f;
+        }
+
+        /* Sobre mí */
+        .about {
+            padding: 50px 20px;
+            background-color: #1a1a1a;
+            text-align: center;
+        }
+
+        .about h2 {
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .about-content img {
+            width: 150px;
+            border-radius: 50%;
+        }
+
+        .about-content p {
+            max-width: 600px;
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+
+        /* Contacto */
+        .contact {
+            padding: 50px 20px;
+            background-color: #2a2a2a;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .contact form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact form input, .contact form textarea {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .contact form button {
+            background-color: #ff6f61;
+            border: none;
+            padding: 10px 20px;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact form button:hover {
+            background-color: #ff3b2f;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            background-color: #333;
+            text-align: center;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #ff6f61;
+        }
+
+        footer p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div include="header.html"></div>
+    <!-- Hero Section -->
+    <div include="user.html"></div>
+
+    <!-- Sección de Proyectos -->
+    <section id="projects" class="projects">
+        <h2>Proyectos</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <img src="https://via.placeholder.com/300" alt="Proyecto 1">
+                <h3>Proyecto 1</h3>
+                <p>Descripción breve del proyecto 1.</p>
+                <button>Ver más</button>
+            </div>
+            <div class="project-card">
+                <img src="https://via.placeholder.com/300" alt="Proyecto 2">
+                <h3>Proyecto 2</h3>
+                <p>Descripción breve del proyecto 2.</p>
+                <button>Ver más</button>
+            </div>
+            <div class="project-card">
+                <img src="https://via.placeholder.com/300" alt="Proyecto 3">
+                <h3>Proyecto 3</h3>
+                <p>Descripción breve del proyecto 3.</p>
+                <button>Ver más</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre mí -->
+    <section id="about" class="about">
+        <h2>Sobre mí</h2>
+        <div class="about-content">
+            <img src="https://via.placeholder.com/150" alt="Foto de sh6ta_thecat">
+            <p>Hola, soy sh6ta_thecat, un apasionado de la programación y la procrastinación creativa. Me encanta explorar nuevas tecnologías y crear proyectos que combinan lo útil con lo divertido.</p>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contact" class="contact">
+        <h2>Contacto</h2>
+        <form>
+            <input type="text" placeholder="Nombre" required>
+            <input type="email" placeholder="Correo electrónico" required>
+            <textarea placeholder="Mensaje" rows="5" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <a href="https://github.com/sh6ta_thecat" target="_blank">GitHub</a>
+            <a href="https://twitter.com/sh6ta_thecat" target="_blank">Twitter</a>
+            <a href="https://linkedin.com/in/sh6ta_thecat" target="_blank">LinkedIn</a>
+        </div>
+        <p>&copy; 2023 sh6ta_thecat. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script>
+        // Animaciones con GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero h1', {
+            duration: 1.5,
+            y: -50,
+            opacity: 0,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.hero p', {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            delay: 0.5,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.project-card', {
+            scrollTrigger: {
+                trigger: '.projects',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 50,
+            stagger: 0.2,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.about-content', {
+            scrollTrigger: {
+                trigger: '.about',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            x: -50,
+            duration: 1,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.contact form', {
+            scrollTrigger: {
+                trigger: '.contact',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: 'power3.out'
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
