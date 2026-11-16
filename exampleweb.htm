@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEP Santísimo Cristo Moreno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset y estilos base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #f4f4f4; color: #333; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        
+        /* Barra superior de aviso (Wix) */
+        .wix-bar { background-color: #fff8e6; border-bottom: 1px solid #f0e6d2; padding: 8px 20px; display: flex; justify-content: space-between; font-size: 12px; color: #555; }
+        .wix-bar span { color: #d97706; margin-right: 5px; }
+
+        /* Header / Navegación */
+        header { background-color: #fff; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; font-weight: 700; font-size: 14px; }
+        .logo img { width: 30px; height: 30px; margin-right: 10px; background-color: #eee; border-radius: 50%; }
+        nav a { text-decoration: none; color: #666; font-size: 14px; margin-left: 20px; }
+        nav a:hover, nav a.active { color: #000; font-weight: 600; }
+
+        /* Contenedor Principal */
+        .main-container { display: none; }
+        .main-container.active { display: block; }
+
+        /* Footer común */
+        footer { background-color: #f5b000; color: #333; text-align: center; padding: 15px; font-size: 14px; position: fixed; bottom: 0; width: 100%; z-index: 100; }
+        footer a { color: #000; text-decoration: underline; }
+
+        /* --- VISTA 1: HOME --- */
+        .hero-home { background: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') center/cover; height: 400px; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 20px; }
+        .hero-home::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 60, 100, 0.7); }
+        .hero-home-content { position: relative; z-index: 1; }
+        .hero-home h1 { font-size: 3rem; margin-bottom: 10px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-home p { font-size: 1.2rem; max-width: 600px; margin-bottom: 20px; }
+        .btn-yellow { background-color: #f5b000; color: #333; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; display: inline-block; }
+        
+        .welcome-section { text-align: center; padding: 40px 20px; background: #fff; }
+        .welcome-section h2 { margin-bottom: 30px; font-size: 1.8rem; }
+        .features-grid { display: flex; justify-content: center; gap: 20px; max-width: 1000px; margin: 0 auto 30px; }
+        .feature-card { flex: 1; text-align: center; }
+        .feature-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; }
+        .feature-card p { font-weight: 600; color: #555; }
+        .experience-text { max-width: 800px; margin: 0 auto; text-align: left; font-size: 15px; line-height: 1.6; color: #555; }
+        .experience-text .star { color: #f5b000; font-size: 1.2rem; }
+
+        /* --- VISTA 2 y 4: SERVICIOS / FOTOS --- */
+        .hero-inner { background: #333; height: 200px; display: flex; justify-content: center; align-items: center; color: white; }
+        .hero-inner h1 { font-size: 2.5rem; font-weight: 400; }
+        
+        .content-page { max-width: 900px; margin: 40px auto; background: #fff; padding: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+        .section-title { text-align: center; font-size: 1.2rem; margin-bottom: 20px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        
+        /* Acordeón de servicios */
+        .accordion { border-bottom: 1px solid #ccc; margin-bottom: 15px; }
+        .accordion-header { padding: 10px 0; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; }
+        .accordion-content { padding: 10px 0; font-size: 14px; color: #555; display: block; }
+        .accordion-content ul { list-style: none; }
+        .accordion-content li { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dotted #eee; }
+
+        /* Galería de fotos (Vista 4) */
+        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .gallery-grid img { width: 100%; height: 250px; object-fit: cover; }
+        
+        /* Testimonios (Vista 4) */
+        .testimonials { display: flex; justify-content: space-between; text-align: center; margin-bottom: 30px; font-size: 13px; color: #666; font-style: italic; }
+        .testimonials div { flex: 1; padding: 0 10px; }
+
+        /* --- VISTA 3: QUIÉNES SOMOS --- */
+        .about-images { display: flex; gap: 10px; margin-bottom: 20px; }
+        .about-images img { width: 50%; height: 200px; object-fit: cover; }
+        .about-text { font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 30px; }
+        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .team-grid img { width: 100%; height: 200px; object-fit: cover; }
+
+        /* --- VISTA 5: CONTACTO --- */
+        .contact-info { text-align: center; margin-bottom: 40px; font-size: 15px; line-height: 2; }
+        .contact-grid { display: flex; gap: 20px; }
+        .contact-grid img, .contact-grid .map-placeholder { width: 50%; height: 300px; object-fit: cover; border-radius: 5px; background: #ddd; display: flex; justify-content: center; align-items: center; color: #666; font-weight: bold; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-grid, .contact-grid, .testimonials, .about-images { flex-direction: column; }
+            .feature-card, .contact-grid img, .contact-grid .map-placeholder, .about-images img { width: 100%; }
+            .team-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra superior Wix -->
+    <div class="wix-bar">
+        <div><span>🛈</span> Modo de vista previa</div>
+        <div>Estás viendo una versión sin publicar de este sitio &nbsp; | &nbsp; <strong>Denunciar abuso</strong></div>
+    </div>
+
+    <!-- Header Navegación -->
+    <header>
+        <div class="logo">
+            <img src="https://via.placeholder.com/30" alt="Logo"> 
+            IEP "SANTISIMO CRISTO MORENO"
+        </div>
+        <nav>
+            <a href="#" onclick="showView('home')" class="active" id="nav-home">Inicio</a>
+            <a href="#" onclick="showView('propuesta')" id="nav-propuesta">Propuesta Educativa</a>
+            <a href="#" onclick="showView('about')" id="nav-about">Quiénes somos</a>
+            <a href="#" onclick="showView('galeria')" id="nav-galeria">Costos y Requisitos</a>
+            <a href="#" onclick="showView('contacto')" id="nav-contacto">Contactanos</a>
+            <span>🔍</span>
+        </nav>
+    </header>
+
+    <!-- VISTA 1: HOME -->
+    <div id="home" class="main-container active">
+        <div class="hero-home">
+            <div class="hero-home-content">
+                <h1>ADMISIÓN 2027</h1>
+                <p>Conoce nuestra propuesta educativa y descubre por qué somos el colegio de campeones.</p>
+                <a href="#" class="btn-yellow">¡Contáctanos!</a>
+            </div>
+        </div>
+        
+        <div class="welcome-section">
+            <p style="font-size: 14px; margin-bottom: 10px;">¿Quieres hablar con un asesor en línea?</p>
+            <a href="#" class="btn-yellow" style="margin-bottom: 40px; display: inline-block;">Programar reunión</a>
+            
+            <h2>BIENVENIDOS A NUESTRA FAMILIA</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Educación de Calidad">
+                    <p>Educación de Calidad</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Tecnología">
+                    <p>Tecnología</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Talento Artístico">
+                    <p>Talento Artístico</p>
+                </div>
+            </div>
+
+            <div class="experience-text">
+                <p><span class="star">🌟</span> Somos una Institución con 22 años de experiencia, brindando un servicio educativo de calidad, con un enfoque pre-universitario, basado en un proyecto auténtico, tecnológico e innovador de vanguardia <span class="star">🌟</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA 2: PROPUESTA EDUCATIVA (Servicios) -->
+    <div id="propuesta" class="main-container">
+        <div class="hero-inner" style="background: url('https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') center/cover;">
+            <h1 style="text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">Propuesta Educativa</h1>
+        </div>
+        <div class="content-page">
+            <div class="section-title">Brindamos:</div>
+            <div class="about-text" style="text-align: center; margin-bottom: 30px;">
+                <p>👩🏻‍🏫🏫🏆 ¡Premiados nacional e internacionalmente!</p>
+                <p>Estimado padre/madre de familia, agradecemos su interés en nuestra institución, a través de este medio le hacemos llegar la información de nuestra propuesta educativa.</p>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80" alt="Estudiantes" style="width: 100%; height: 250px; object-fit: cover; margin-bottom: 30px;">
+
+            <div class="accordion">
+                <div class="accordion-header">🏆 Calidad educativa de excelencia <span>⌄</span></div>
+                <div class="accordion-content">
+                    <ul>
+                        <li><span>Curricula auténtica, moderna y tecnológica</span></li>
+                        <li><span>Docentes y especialistas altamente capacitados</span></li>
+                        <li><span>Sólida formación en valores</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion">
+                <div class="accordion-header">🏆 Instalaciones y desarrollo <span>⌄</span></div>
+                <div class="accordion-content">
+                    <ul>
+                        <li><span>Instalaciones seguras con todos los protocolos de bioseguridad</span></li>
+                        <li><span>Desarrollo de competencias, capacidades y talentos</span></li>
+                        <li><span>Amplios Laboratorios</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <div class="section-title">Horarios</div>
+                <div class="accordion">
+                    <div class="accordion-header">Nivel Primaria <span>⌄</span></div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li><span>Ingreso:</span> <span>07:30 am</span></li>
+                            <li><span>Salida:</span> <span>02:30 pm</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="accordion-header">Nivel Secundaria <span>⌄</span></div>
+                    <div class="accordion-content">
+                        <ul>
+                            <li><span>Ingreso:</span> <span>07:30 am</span></li>
+                            <li><span>Salida:</span> <span>02:50 pm</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA 3: QUIÉNES SOMOS -->
+    <div id="about" class="main-container">
+        <div class="hero-inner" style="background: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') center/cover;">
+            <h1 style="text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">Quiénes somos</h1>
+        </div>
+        <div class="content-page">
+            <div class="section-title">IEP Santísimo Cristo Moreno</div>
+            
+            <div class="about-images">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Institución">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Estudiantes">
+            </div>
+
+            <div class="about-text">
+                <p>Desde hace 22 años, la IEP "Santísimo Cristo Moreno" se ha dedicado a formar a las futuras generaciones. Nuestra misión es brindar una educación de calidad con un enfoque pre-universitario, basado en un proyecto auténtico, tecnológico e innovador.</p>
+                <br>
+                <p>Creemos firmemente que cada estudiante posee talentos únicos. Por ello, nuestra plana docente altamente capacitada se enfoca en el desarrollo de competencias, capacidades y una sólida formación en valores, garantizando un ambiente seguro y de vanguardia para su desarrollo integral.</p>
+            </div>
+
+            <div class="section-title">Nuestra Planilla</div>
+            <div class="team-grid">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Docente">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Docente">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Docente">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Docente">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Docente">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Docente">
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA 4: FOTOS Y REFERENCIAS (Costos y Requisitos / Galería) -->
+    <div id="galeria" class="main-container">
+        <div class="hero-inner" style="background: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') center/cover;">
+            <h1 style="text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">Fotos y referencias</h1>
+        </div>
+        <div class="content-page">
+            <div class="section-title">Referencias</div>
+            
+            <div class="testimonials">
+                <div>"La IEP Santísimo Cristo Moreno ha sido fundamental en la formación de mi hijo. Su enfoque tecnológico y en valores es excepcional." <br><br><strong>Familia Pérez</strong></div>
+                <div>"Excelente nivel académico. Los docentes están altamente capacitados y las instalaciones son seguras y modernas." <br><br><strong>Familia Gómez</strong></div>
+                <div>"Un colegio de campeones. Mis hijos han desarrollado sus talentos y competencias al máximo nivel." <br><br><strong>Familia Rodríguez</strong></div>
+            </div>
+
+            <div class="section-title">Nuestras instalaciones</div>
+            <div class="gallery-grid">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Aula">
+                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Laboratorio">
+                <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Biblioteca">
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Patio">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Estudiantes">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Clase">
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA 5: CONTACTO -->
+    <div id="contacto" class="main-container">
+        <div class="hero-inner" style="background: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') center/cover;">
+            <h1 style="color: #333; text-shadow: 1px 1px 4px rgba(255,255,255,0.8);">Contacto</h1>
+        </div>
+        <div class="content-page">
+            <div class="section-title">Horario y citas</div>
+            
+            <div class="contact-info">
+                <p>Para reservar una cita, llama al <strong>555 555 555</strong> o envía un correo a <a href="mailto:info@cristomoreno.edu.pe">[correo electrónico]</a></p>
+                <br>
+                <p><strong>Lunes a viernes:</strong> 8:00-18:00</p>
+                <p><strong>Jueves y viernes:</strong> 8:00-20:00</p>
+                <p><strong>Sábado:</strong> 9:00-18:00</p>
+                <p><strong>Domingo:</strong> cerrado</p>
+            </div>
+
+            <div class="section-title">Visítanos</div>
+            <div class="contact-info" style="margin-bottom: 20px;">
+                <p>Estamos en la Avenida del Sol, 14, entre la calle Oriente y la calle Espejo. ¡Esperamos verte pronto!</p>
+            </div>
+
+            <div class="contact-grid">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Oficina de admisiones">
+                <!-- Mapa simulado con la imagen proporcionada -->
+                <div class="map-placeholder" style="background: url('https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=14&size=600x300&maptype=roadmap&key=YOUR_API_KEY') center/cover; color: transparent;">
+                    Mapa
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Para reservar una cita, llama al 555 555 555 o envía un correo a <a href="mailto:info@cristomoreno.edu.pe">[correo electrónico]</a>
+    </footer>
+
+    <script>
+        // Lógica simple para cambiar entre las 5 vistas
+        function showView(viewId) {
+            // Ocultar todas las vistas
+            document.querySelectorAll('.main-container').forEach(el => el.classList.remove('active'));
+            // Quitar clase active de los enlaces de navegación
+            document.querySelectorAll('nav a').forEach(el => el.classList.remove('active'));
+            
+            // Mostrar la vista seleccionada
+            document.getElementById(viewId).classList.add('active');
+            
+            // Marcar el enlace como activo (opcional, simplificado)
+            if(viewId === 'home') document.getElementById('nav-home').classList.add('active');
+            if(viewId === 'propuesta') document.getElementById('nav-propuesta').classList.add('active');
+            if(viewId === 'about') document.getElementById('nav-about').classList.add('active');
+            if(viewId === 'galeria') document.getElementById('nav-galeria').classList.add('active');
+            if(viewId === 'contacto') document.getElementById('nav-contacto').classList.add('active');
+
+            // Scroll al inicio
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>
